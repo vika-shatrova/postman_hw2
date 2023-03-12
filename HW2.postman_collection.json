@@ -1,0 +1,1224 @@
+{
+	"info": {
+		"_postman_id": "adb4eac2-6736-4848-b947-42459c2637da",
+		"name": "HW2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26169063"
+	},
+	"item": [
+		{
+			"name": "login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"var resp_token = jsonData.token\r",
+							"\r",
+							"\r",
+							"console.log(resp_token)\r",
+							"pm.environment.set(\"token\", resp_token);\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "login",
+							"value": "Vadim",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "3r2323d2323f",
+							"type": "text"
+						},
+						{
+							"key": "auth_token",
+							"value": "{{token}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/login",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"login"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "First",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/first",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"first"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user_info_3_name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"var resp_name = jsonData.name\r",
+							"\r",
+							"console.log(\"Resp_name = \" + resp_name)\r",
+							"\r",
+							"pm.test(\"Name is correct\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Vika\");\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Vika",
+							"type": "text"
+						},
+						{
+							"key": "age",
+							"value": "30",
+							"type": "text"
+						},
+						{
+							"key": "salary",
+							"value": "2000",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/user_info_3",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user_info_3"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Vika",
+							"disabled": true
+						},
+						{
+							"key": "age",
+							"value": "30",
+							"disabled": true
+						},
+						{
+							"key": "salary",
+							"value": "2000",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user_info_2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// http://162.55.220.72:5005/user_info_2\r",
+							"// 1. Вставить параметр salary из окружения в request\r",
+							"// 2. Вставить параметр age из окружения в age\r",
+							"// 3. Вставить параметр name из окружения в name\r",
+							"// 4. Отправить запрос.\r",
+							"// 5. Статус код 200\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"// 6. Спарсить response body в json.\r",
+							"// 7. Спарсить request.\r",
+							"var jsonData = pm.response.json();\r",
+							"var req = request.data;\r",
+							"\r",
+							"\r",
+							"// 8. Проверить, что json response имеет параметр start_qa_salary\r",
+							"pm.test(\"json response have start_qa_salary\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"start_qa_salary\");\r",
+							"});\r",
+							"\r",
+							"// 9. Проверить, что json response имеет параметр qa_salary_after_6_months\r",
+							"pm.test(\"json response have qa_salary_after_6_months\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"qa_salary_after_6_months\");\r",
+							"});\r",
+							"\r",
+							"// 10. Проверить, что json response имеет параметр qa_salary_after_12_months\r",
+							"pm.test(\"json response have qa_salary_after_12_months\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"qa_salary_after_12_months\");\r",
+							"});\r",
+							"\r",
+							"// 11. Проверить, что json response имеет параметр qa_salary_after_1.5_year\r",
+							"pm.test(\"json response have qa_salary_after_1.5_year\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"qa_salary_after_1.5_year\");\r",
+							"});\r",
+							"\r",
+							"// 12. Проверить, что json response имеет параметр qa_salary_after_3.5_years\r",
+							"pm.test(\"json response have qa_salary_after_3.5_years\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"qa_salary_after_3.5_years\");\r",
+							"});\r",
+							"\r",
+							"// 13. Проверить, что json response имеет параметр person\r",
+							"pm.test(\"json response have person\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"person\");\r",
+							"});\r",
+							"\r",
+							"// 14. Проверить, что параметр start_qa_salary равен salary из request (salary забрать из request.)\r",
+							"\r",
+							"var start_qa_salary = jsonData.start_qa_salary;\r",
+							"console.log(\"start_qa_salary from response is \" + start_qa_salary)\r",
+							"\r",
+							"var req = request.data;\r",
+							"var req_salary = req.salary;\r",
+							"console.log(\"req_salary is \" + req_salary)\r",
+							"\r",
+							"\r",
+							"pm.test(\"start_qa_salary from response = salary from request\", function () {\r",
+							"    pm.expect(+req_salary).to.eql(start_qa_salary);\r",
+							"});\r",
+							"\r",
+							"// 15. Проверить, что параметр qa_salary_after_6_months равен salary*2 из request (salary забрать из request.)\r",
+							"\r",
+							"var qa_salary_after_6_months = jsonData.qa_salary_after_6_months;\r",
+							"console.log(\"qa_salary_after_6_months from response is \" + qa_salary_after_6_months)\r",
+							"\r",
+							"var double_salary = req.salary * 2;\r",
+							"console.log(\"double req_salary is \" + double_salary)\r",
+							"\r",
+							"\r",
+							"pm.test(\"qa_salary_after_6_months = salary*2 from request\", function () {\r",
+							"    pm.expect(qa_salary_after_6_months).to.eql(double_salary);\r",
+							"});\r",
+							"\r",
+							"// 16. Проверить, что параметр qa_salary_after_12_months равен salary*2.7 из request (salary забрать из request.)\r",
+							"\r",
+							"var qa_salary_after_12_months = jsonData.qa_salary_after_12_months;\r",
+							"console.log(\"qa_salary_after_12_months from response is \" + qa_salary_after_12_months)\r",
+							"\r",
+							"var salary_two_and_seven = req.salary * 2.7;\r",
+							"console.log(\"2_7_salary is \" + salary_two_and_seven)\r",
+							"\r",
+							"\r",
+							"pm.test(\"qa_salary_after_12_months from response = salary* 2.7 from request\", function () {\r",
+							"    pm.expect(qa_salary_after_12_months).to.eql(salary_two_and_seven);\r",
+							"});\r",
+							"\r",
+							"// 17. Проверить, что параметр qa_salary_after_1.5_year равен salary*3.3 из request (salary забрать из request.)\r",
+							"\r",
+							"var qa_salary_after_1_5_year = jsonData[\"qa_salary_after_1.5_year\"];\r",
+							"console.log(\"qa_salary_after_1.5_year from response is \" + qa_salary_after_1_5_year)\r",
+							"\r",
+							"var salary_one_and_five = req.salary * 3.3;\r",
+							"console.log(\"3.3_salary is \" + salary_one_and_five)\r",
+							"\r",
+							"pm.test(\"qa_salary_after_12_months from response = salary* 2.7 from request\", function () {\r",
+							"    pm.expect(qa_salary_after_12_months).to.eql(salary_two_and_seven);\r",
+							"});\r",
+							"\r",
+							"// 18. Проверить, что параметр qa_salary_after_3.5_years равен salary*3.8 из request (salary забрать из request.)\r",
+							"\r",
+							"var qa_salary_after_3_5_years = jsonData[\"qa_salary_after_3.5_years\"];\r",
+							"console.log(\"qa_salary_after_3.5_years from response is \" + qa_salary_after_3_5_years)\r",
+							"\r",
+							"var salary_three_and_eight = req.salary * 3.8;\r",
+							"console.log(\"3.8_salary is \" + salary_three_and_eight)\r",
+							"\r",
+							"pm.test(\"qa_salary_after_3.5_years from response = salary*3.8 from request\", function () {\r",
+							"    pm.expect(qa_salary_after_3_5_years).to.eql(salary_three_and_eight);\r",
+							"});\r",
+							"\r",
+							"// 19. Проверить, что в параметре person, 1-й элемент из u_name равен salary из request (salary забрать из request.)\r",
+							"var one_u_name = jsonData.person.u_name[1];\r",
+							"console.log(one_u_name)\r",
+							"\r",
+							"pm.test(\"one item from u_name = salary from request\", function () {\r",
+							"    pm.expect(one_u_name).to.eql(+req_salary);\r",
+							"});\r",
+							"// 20. Проверить, что что параметр u_age равен age из request (age забрать из request.)\r",
+							"var req_age = req.age;\r",
+							"var resp_age = jsonData.person.u_age;\r",
+							"console.log (\"req_age = \" + req_age)\r",
+							"console.log (\"resp_age = \" + resp_age)\r",
+							"\r",
+							"pm.test(\"u_age = age from request\", function () {\r",
+							"    pm.expect(resp_age).to.eql(+req_age);\r",
+							"});\r",
+							"\r",
+							"// 21. Проверить, что параметр u_salary_5_years равен salary*4.2 из request (salary забрать из request.)\r",
+							"\r",
+							"// var salary_for_and_two = req_salary * 4.2;\r",
+							"// console.log (\"req_age * 4.2 = \" + salary_for_and_two)\r",
+							"\r",
+							"// pm.test(\"u_salary_5_years = salary*4.2 from request\", function () {\r",
+							"//     pm.expect(jsonData.person.u_salary_5_years).to.eql(salary_for_and_two);\r",
+							"// });\r",
+							"\r",
+							"pm.test(\"u_salary_5_years = salary*4.2 from request\", function () {\r",
+							"    pm.expect(jsonData.person.u_salary_5_years).to.eql(req_salary*4.2);\r",
+							"});\r",
+							"// 22. ***Написать цикл который выведет в консоль по порядку элементы списка из параметра person.\r",
+							"\r",
+							"let list = [jsonData.person.u_age, jsonData.person.u_name, jsonData.person.u_salary_5_years];\r",
+							"\r",
+							"for (key in list) {\r",
+							"  console.log(`${key} = ${list[key]}`);\r",
+							"}\r",
+							"// Ещё пару вариантов нашла\r",
+							"let arr = [jsonData.person];\r",
+							"// arr.foo = \"hello\";\r",
+							"\r",
+							"for (let i in arr) {\r",
+							"   console.log(i); // выводит \"0\", \"1\", \"2\", \"foo\"\r",
+							"}\r",
+							"\r",
+							"// for (let i of arr) {\r",
+							"//    console.log(i); // выводит \"3\", \"5\", \"7\"\r",
+							"// }"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "{{name}}",
+							"type": "text"
+						},
+						{
+							"key": "age",
+							"value": "{{age}}",
+							"type": "text"
+						},
+						{
+							"key": "salary",
+							"value": "{{salary}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/user_info_2",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user_info_2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "object_info_3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// http://162.55.220.72:5005/object_info_3\r",
+							"// 1. Отправить запрос.\r",
+							"// 2. Статус код 200\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"// 3. Спарсить response body в json.\r",
+							"// 4. Спарсить request.\r",
+							"// 5. Проверить, что name в ответе равно name s request (name забрать из request.)\r",
+							"\r",
+							"var jsonData = pm.response.json();\r",
+							"var resp_name = jsonData.name;\r",
+							"var resp_age = jsonData.age;\r",
+							"var resp_salary = jsonData.salary;\r",
+							"var req = request.data;\r",
+							"var req_url = pm.request.url.query.toObject ();\r",
+							"var req_age = req_url.age;\r",
+							"var req_salary = req_url.salary;\r",
+							"\r",
+							"// 5. Проверить, что name в ответе равно name s request (name забрать из request.)\r",
+							"// 6. Проверить, что age в ответе равно age s request (age забрать из request.)\r",
+							"// 7. Проверить, что salary в ответе равно salary s request (salary забрать из request.)\r",
+							"\r",
+							"console.log(\"req_name = \", req_url.name)\r",
+							"console.log(\"Resp_name = \" + resp_name)\r",
+							"console.log(\"Resp_age = \" + resp_age)\r",
+							"console.log(\"req_age = \", req_url.age)\r",
+							"console.log(\"Resp_salary = \" + resp_salary)\r",
+							"console.log(\"req_salary = \"+ req_url.salary)\r",
+							"\r",
+							"pm.test(\"Name is correct\", function () {\r",
+							"    pm.expect(req_url.name).to.eql(resp_name);\r",
+							"});\r",
+							"pm.test(\"Age is correct\", function () {\r",
+							"    pm.expect(req_url.age).to.eql(resp_age);\r",
+							"});\r",
+							"pm.test(\"Salary is correct\", function () {\r",
+							"    pm.expect(+req_url.salary).to.eql(resp_salary);\r",
+							"});\r",
+							"\r",
+							"// 8. Вывести в консоль параметр family из response.\r",
+							"\r",
+							"// var jsonData = pm.response.json();\r",
+							"// var family = jsonData.family\r",
+							"\r",
+							"// console.log(\"Family is = \" + family)\r",
+							"\r",
+							"var jsonData = JSON.parse(responseBody);\r",
+							"\r",
+							"const family = jsonData.family;\r",
+							"\r",
+							"pm.collectionVariables.set('family', JSON.stringify(family))\r",
+							"console.log(jsonData.family)\r",
+							"\r",
+							"// 9. Проверить, что у параметра dog есть параметры name.\r",
+							"// 10. Проверить, что у параметра dog есть параметры age.\r",
+							"// 11. Проверить, что параметр name имеет значение Luky.\r",
+							"\r",
+							"var dog_name = jsonData.family.pets.dog.name;\r",
+							"var dog_age = jsonData.family.pets.dog.age;\r",
+							"console.log(\"Dog name is = \" , dog_name)\r",
+							"console.log(\"Dog age is = \" , dog_age)\r",
+							"\r",
+							"// 11. Проверить, что параметр name имеет значение Luky.\r",
+							"// 12. Проверить, что параметр age имеет значение 4.\r",
+							"\r",
+							"pm.test(\"Dog_name_Luky\", function () {\r",
+							"    pm.expect(dog_name).to.eql(\"Luky\");\r",
+							"});\r",
+							"pm.test(\"Dog_age_4\", function () {\r",
+							"    pm.expect(dog_age).to.eql(4);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/object_info_3?name=Vika&age=30&salary=2000",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"object_info_3"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Vika"
+						},
+						{
+							"key": "age",
+							"value": "30"
+						},
+						{
+							"key": "salary",
+							"value": "2000"
+						},
+						{
+							"key": "auth_token",
+							"value": "{{token}}",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "object_info_4",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"// http://162.55.220.72:5005/object_info_4\r",
+							"// 1. Отправить запрос.\r",
+							"// 2. Статус код 200\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// 3. Спарсить response body в json.\r",
+							"// 4. Спарсить request.\r",
+							"// 5. Проверить, что name в ответе равно name s request (name забрать из request.)\r",
+							"// 6. Проверить, что age в ответе равно age из request (age забрать из request.)\r",
+							"var jsonData = pm.response.json();\r",
+							"var req = request.data;\r",
+							"var resp_name = jsonData.name;\r",
+							"var resp_age = jsonData.age;\r",
+							"var req_url = pm.request.url.query.toObject ();\r",
+							"var req_age = req_url.age;\r",
+							"\r",
+							"console.log(\"req_name = \", req_url.name)\r",
+							"console.log(\"Resp_name = \" + resp_name)\r",
+							"console.log(\"Resp_age = \" + resp_age)\r",
+							"console.log(\"req_age = \", req_url.age)\r",
+							"\r",
+							"\r",
+							"pm.test(\"Name is correct\", function () {\r",
+							"    pm.expect(req_url.name).to.eql(resp_name);\r",
+							"});\r",
+							"pm.test(\"Age is correct\", function () {\r",
+							"    pm.expect(+req_url.age).to.eql(resp_age);\r",
+							"});\r",
+							"\r",
+							"// 7. Вывести в консоль параметр salary из request.\r",
+							"// 8. Вывести в консоль параметр salary из response.\r",
+							"\r",
+							"var req_salary = jsonData.salary;\r",
+							"var resp_salary = req_url.salary;\r",
+							"\r",
+							"console.log(\"req_salary = \", + req_url.salary)\r",
+							"console.log(\"resp_salary = \" + resp_salary)\r",
+							"\r",
+							"// 9. Вывести в консоль 0-й элемент параметра salary из response.\r",
+							"\r",
+							"// var jsonData = JSON.parse(responseBody);\r",
+							"\r",
+							"// const salary = jsonData.salary;\r",
+							"\r",
+							"// pm.collectionVariables.set('salary', JSON.stringify(salary))\r",
+							"console.log(jsonData.salary)\r",
+							"console.log(\"The 0 item from response is \" + jsonData.salary[0])\r",
+							"\r",
+							"// 10. Вывести в консоль 1-й элемент параметра salary параметр salary из response.\r",
+							"console.log(\"The 1 item from response is \" + jsonData.salary[1])\r",
+							"\r",
+							"// 11. Вывести в консоль 2-й элемент параметра salary параметр salary из response.\r",
+							"console.log(\"The 2 item from response is \" + jsonData.salary[2])\r",
+							"\r",
+							"// 12. Проверить, что 0-й элемент параметра salary равен salary из request (salary забрать из request.)\r",
+							"var the_0_salary = jsonData.salary[0];\r",
+							"pm.test(\"The 0 item salary from response = salary from request \", function () {\r",
+							"    pm.expect(+req_url.salary).to.eql(the_0_salary);\r",
+							"});\r",
+							"\r",
+							"// 13. Проверить, что 1-й элемент параметра salary равен salary*2 из request (salary забрать из request.)\r",
+							"var the_1_salary = jsonData.salary[1];\r",
+							"var double_req_salary = req_url.salary * 2;\r",
+							"console.log (double_req_salary)\r",
+							"console.log (the_1_salary)\r",
+							"\r",
+							"pm.test(\"The 1 item salary from response = salary from request * 2 \", function () {\r",
+							"    pm.expect(+double_req_salary).to.eql(+the_1_salary);\r",
+							"});\r",
+							"\r",
+							"// 14. Проверить, что 2-й элемент параметра salary равен salary*3 из request (salary забрать из request.)\r",
+							"var the_2_salary = jsonData.salary[2];\r",
+							"var three_req_salary = req_url.salary * 3;\r",
+							"console.log (three_req_salary)\r",
+							"console.log (the_2_salary)\r",
+							"\r",
+							"pm.test(\"The 2 item salary from response = salary from request * 3 \", function () {\r",
+							"    pm.expect(+three_req_salary).to.eql(+the_2_salary);\r",
+							"});\r",
+							"\r",
+							"// 15. Создать в окружении переменную name\r",
+							"\r",
+							"pm.environment.set(\"name\");\r",
+							"\r",
+							"// 16. Создать в окружении переменную age\r",
+							"\r",
+							"pm.environment.set(\"age\");\r",
+							"\r",
+							"// 17. Создать в окружении переменную salary\r",
+							"\r",
+							"pm.environment.set(\"salary\");\r",
+							"\r",
+							"// 18. Передать в окружение переменную name\r",
+							"\r",
+							"console.log(resp_name)\r",
+							"pm.environment.set(\"name\", resp_name);\r",
+							"\r",
+							"// 19. Передать в окружение переменную age\r",
+							"\r",
+							"console.log(resp_age)\r",
+							"pm.environment.set(\"age\", resp_age);\r",
+							"\r",
+							"// 20. Передать в окружение переменную salary\r",
+							"\r",
+							"console.log(resp_salary)\r",
+							"pm.environment.set(\"salary\", resp_salary);\r",
+							"\r",
+							"// 21. Написать цикл который выведет в консоль по порядку элементы списка из параметра salary.\r",
+							"var salary = jsonData.salary;\r",
+							"salary.length;\r",
+							"\r",
+							"console.log(salary)\r",
+							"console.log(salary.length)\r",
+							"\r",
+							"var step;\r",
+							"for (step = 0; step < salary.length; step++) {\r",
+							"  console.log(\"Salary growing \" + jsonData.salary[step+0])\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/object_info_4?name=Vika&age=30&salary=2000",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"object_info_4"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Vika"
+						},
+						{
+							"key": "age",
+							"value": "30"
+						},
+						{
+							"key": "salary",
+							"value": "2000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user_info_3_name_req",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"var resp_name = jsonData.name;\r",
+							"\r",
+							"var req = request.data;\r",
+							"var req_name = req.name;\r",
+							"\r",
+							"console.log(\"Resp_name = \" + resp_name)\r",
+							"console.log(\"Req_name = \" + req_name)\r",
+							"\r",
+							"pm.test(\"Name is correct\", function () {\r",
+							"    pm.expect(req_name).to.eql(resp_name);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Vika",
+							"type": "text"
+						},
+						{
+							"key": "age",
+							"value": "30",
+							"type": "text"
+						},
+						{
+							"key": "salary",
+							"value": "2000",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/user_info_3",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user_info_3"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Vika",
+							"disabled": true
+						},
+						{
+							"key": "age",
+							"value": "30",
+							"disabled": true
+						},
+						{
+							"key": "salary",
+							"value": "2000",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user_info_3_age",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"var resp_age = jsonData.age\r",
+							"\r",
+							"console.log(\"Resp_name = \" + resp_age)\r",
+							"\r",
+							"pm.test(\"Age is correct\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"30\");\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Vika",
+							"type": "text"
+						},
+						{
+							"key": "age",
+							"value": "30",
+							"type": "text"
+						},
+						{
+							"key": "salary",
+							"value": "2000",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/user_info_3",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user_info_3"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Vika",
+							"disabled": true
+						},
+						{
+							"key": "age",
+							"value": "30",
+							"disabled": true
+						},
+						{
+							"key": "salary",
+							"value": "2000",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user_info_3_age_req",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"var resp_age = jsonData.age;\r",
+							"\r",
+							"var req = request.data;\r",
+							"var req_age = req.age;\r",
+							"\r",
+							"console.log(\"Resp_age = \", resp_age)\r",
+							"console.log(\"Req_age = \" , req_age)\r",
+							"\r",
+							"pm.test(\"Age is correct\", function () {\r",
+							"    pm.expect(resp_age).to.eql(req_age);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Vika",
+							"type": "text"
+						},
+						{
+							"key": "age",
+							"value": "30",
+							"type": "text"
+						},
+						{
+							"key": "salary",
+							"value": "2000",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/user_info_3",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user_info_3"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Vika",
+							"disabled": true
+						},
+						{
+							"key": "age",
+							"value": "30",
+							"disabled": true
+						},
+						{
+							"key": "salary",
+							"value": "2000",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user_info_3_salary_req",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"var resp_salary = jsonData.salary;\r",
+							"\r",
+							"var req = request.data;\r",
+							"var req_salary = +req.salary;\r",
+							"\r",
+							"console.log(\"Resp_salary = \", resp_salary)\r",
+							"console.log(\"Req_salary = \" , req_salary)\r",
+							"\r",
+							"pm.test(\"Salary is correct\", function () {\r",
+							"    pm.expect(resp_salary).to.eql(req_salary);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Vika",
+							"type": "text"
+						},
+						{
+							"key": "age",
+							"value": "30",
+							"type": "text"
+						},
+						{
+							"key": "salary",
+							"value": "2000",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/user_info_3",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user_info_3"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Vika",
+							"disabled": true
+						},
+						{
+							"key": "age",
+							"value": "30",
+							"disabled": true
+						},
+						{
+							"key": "salary",
+							"value": "2000",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user_info_3_salary_u_salary_1_5_year",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"var resp_salary = jsonData.salary;\r",
+							"var salary_4 = pm.response.json ().u_salary_1_5_year;\r",
+							"\r",
+							"var req = request.data;\r",
+							"var req_salary = +req.salary;\r",
+							"\r",
+							"console.log(\"Resp_salary = \", resp_salary)\r",
+							"console.log(\"Req_salary = \" , req_salary)\r",
+							"console.log(\"Req_salary = \" , salary_4)\r",
+							"\r",
+							"pm.test(\"Salary is correct\", function () {\r",
+							"    pm.expect(resp_salary).to.eql(req_salary);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Vika",
+							"type": "text"
+						},
+						{
+							"key": "age",
+							"value": "30",
+							"type": "text"
+						},
+						{
+							"key": "salary",
+							"value": "2000",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/user_info_3",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user_info_3"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Vika",
+							"disabled": true
+						},
+						{
+							"key": "age",
+							"value": "30",
+							"disabled": true
+						},
+						{
+							"key": "salary",
+							"value": "2000",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user_info_3_salary",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"var resp_salary = jsonData.salary\r",
+							"\r",
+							"console.log(\"Resp_name = \" + resp_salary)\r",
+							"\r",
+							"pm.test(\"Salary is correct\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"2000\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Salary is correct\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"1000\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Vika",
+							"type": "text"
+						},
+						{
+							"key": "age",
+							"value": "30",
+							"type": "text"
+						},
+						{
+							"key": "salary",
+							"value": "2000",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/user_info_3",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user_info_3"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Vika",
+							"disabled": true
+						},
+						{
+							"key": "age",
+							"value": "30",
+							"disabled": true
+						},
+						{
+							"key": "salary",
+							"value": "2000",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user_info_3_family",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"var resp_salary = jsonData.salary;\r",
+							"// var family = jsonData.family\r",
+							"\r",
+							"// console.log(\"Family is = \" + family)\r",
+							"\r",
+							"var jsonData = JSON.parse(responseBody);\r",
+							"const family = jsonData.family;\r",
+							"pm.collectionVariables.set('family', JSON.stringify(family))\r",
+							"console.log(jsonData.family)\r",
+							"\r",
+							"var resp_u_salary = family.u_salary_1_5_year;\r",
+							"var req_salary = resp_salary * 4;\r",
+							"\r",
+							"console.log(resp_u_salary);\r",
+							"console.log(req_salary);\r",
+							"\r",
+							"pm.test(\"Salary after 1.5 years match  \", function() {\r",
+							"    pm.expect(resp_u_salary).to.eql(req_salary);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Vika",
+							"type": "text"
+						},
+						{
+							"key": "age",
+							"value": "30",
+							"type": "text"
+						},
+						{
+							"key": "salary",
+							"value": "2000",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/user_info_3",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user_info_3"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Vika",
+							"disabled": true
+						},
+						{
+							"key": "age",
+							"value": "30",
+							"disabled": true
+						},
+						{
+							"key": "salary",
+							"value": "2000",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "salary",
+			"value": ""
+		},
+		{
+			"key": "family",
+			"value": ""
+		}
+	]
+}
